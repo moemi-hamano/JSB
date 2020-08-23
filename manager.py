@@ -3,6 +3,7 @@
 import tkinter as tk
 from key import KeyMain
 from timer import TimerMain
+from tetris_field import TetrisField
 from display import DisplayMain
 from main_exit import main_exit_routine
 from const import KEY_LEFT
@@ -26,8 +27,10 @@ class ManagerMain:
         self.key = KeyMain(self, self.app)
         # タイマインスタンス生成
         self.timer = TimerMain(self, self.app)
+        # ブロックの管理リストを初期化
+        self.tetris_field = TetrisField()
         # ディスプレイインスタンス生成
-        self.display = DisplayMain(self.app)
+        self.display = DisplayMain(self.app, self.tetris_field)
 
     # ゲーム開始
     def start_event(self):
