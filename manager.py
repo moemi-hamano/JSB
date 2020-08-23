@@ -3,6 +3,7 @@
 import tkinter as tk
 from key import KeyMain
 from timer import TimerMain
+from display import DisplayMain
 from main_exit import main_exit_routine
 from const import KEY_LEFT
 from const import KEY_RIGHT
@@ -21,11 +22,12 @@ class ManagerMain:
         print("[MNG]manager init")
         # アプリ(tkinter)インスタンス生成
         self.app = tk.Tk()
-        self.app.geometry("200x100")
         # キーインスタンス生成
         self.key = KeyMain(self, self.app)
         # タイマインスタンス生成
         self.timer = TimerMain(self, self.app)
+        # ディスプレイインスタンス生成
+        self.display = DisplayMain(self.app)
 
     # ゲーム開始
     def start_event(self):
