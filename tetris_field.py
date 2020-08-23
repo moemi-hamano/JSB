@@ -39,3 +39,57 @@ class TetrisField:
     def get_square(self, x, y):
         # 指定した座標の正方形を取得
         return self.squares[y * self.width + x]
+
+    # ゲームオーバーかどうかを判断
+    def judge_game_over(self, block):
+
+        # フィールド上で既に埋まっている座標の集合作成
+        no_empty_cord = set(square.get_cord() for square
+                            in self.get_squares() if square.get_color() != TETRIS_BACK_GROUND_COLOR)
+
+        # ブロックがある座標の集合作成
+        block_cord = set(square.get_cord() for square
+                         in block.get_squares())
+
+        # ブロックの座標の集合と
+        # フィールドの既に埋まっている座標の集合の積集合を作成
+        collision_set = no_empty_cord & block_cord
+
+        # 積集合が空であればゲームオーバーではない
+        if len(collision_set) == 0:
+            ret = False
+        else:
+            ret = True
+
+        return ret
+
+    # 指定した方向にブロックを移動できるかを判断
+    def judge_can_move(self, block, direction):
+
+        # フィールド上で既に埋まっている座標の集合作成
+        no_empty_cord = set(square.get_cord() for square
+                            in self.get_squares() if square.get_color() != TETRIS_BACK_GROUND_COLOR)
+
+        # 移動後のブロックがある座標の集合作成
+        move_block_cord = set(square.get_moved_cord(direction) for square
+                              in block.get_squares())
+
+        # フィールドからはみ出すかどうかを判断
+        for x, y in move_block_cord:
+
+            # はみ出す場合は移動できない
+            if x < 0 or x >= self.width or \
+                    y < 0 or y >= self.height:
+                return False
+
+        # 移動後のブロックの座標の集合と
+        # フィールドの既に埋まっている座標の集合の積集合を作成
+        collision_set = no_empty_cord & move_block_cord
+
+        # 積集合が空なら移動可能
+        if len(collision_set) == 0:
+            move_pos_ret = True
+        else:
+            move_pos_ret = False
+
+        return move_pos_ret

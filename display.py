@@ -28,4 +28,4 @@ class DisplayMain:
         self.canvas = TetrisCanvas(app, tetris_field)
 
         # 次のテトリミノ表示画面をセット
-        self.canvas = NextTetriminoCanvas(app, self.next_tetrimino_field)
+        self.next_canvas = NextTetriminoCanvas(app, self.next_tetrimino_field)

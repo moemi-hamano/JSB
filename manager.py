@@ -5,6 +5,7 @@ from key import KeyMain
 from timer import TimerMain
 from tetris_field import TetrisField
 from display import DisplayMain
+from tetris_block import TetrisBlock
 from main_exit import main_exit_routine
 from const import KEY_LEFT
 from const import KEY_RIGHT
@@ -38,6 +39,21 @@ class ManagerMain:
     def start_event(self):
         # タイマ開始
         self.timer.timer_start()
+        # 落下ブロックを新規追加
+        self.new_block()
+
+    def new_block(self):
+        # ブロックを新規追加
+
+        # 落下中のブロックインスタンスを作成
+        self.block = TetrisBlock()
+
+        if self.tetris_field.judge_game_over(self.block):
+            self.end_func()
+            print("GAME OVER")
+
+        # テトリス画面をアップデート
+        self.display.canvas.update(self.tetris_field, self.block)
 
     # テトリミノ移動
     def tetrimino_move(self, key):
