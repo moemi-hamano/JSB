@@ -24,9 +24,6 @@ class DisplayMain:
         # 次のテトリミノ管理を初期化
         self.next_tetrimino_field = NextTetriminoField()
 
-        # 落下ブロックをセット
-        self.block = None
-
         # テトリス画面をセット
         self.canvas = TetrisCanvas(app, tetris_field)
 

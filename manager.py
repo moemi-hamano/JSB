@@ -29,6 +29,8 @@ class ManagerMain:
         self.timer = TimerMain(self, self.app)
         # ブロックの管理リストを初期化
         self.tetris_field = TetrisField()
+        # 落下ブロックをセット
+        self.block = None
         # ディスプレイインスタンス生成
         self.display = DisplayMain(self.app, self.tetris_field)
 
