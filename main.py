@@ -12,6 +12,8 @@ def main():
     mng = ManagerMain()
     # ゲーム開始
     mng.start_event()
+    # アプリの待機及びイベント処理待機開始
+    mng.app.mainloop()
     # ゲーム終了
     print("mainloop end")
 

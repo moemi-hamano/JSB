@@ -33,8 +33,6 @@ class ManagerMain:
     def start_event(self):
         # タイマ開始
         self.timer.timer_start()
-        # アプリの待機及びイベント処理待機開始
-        self.app.mainloop()
 
     # テトリミノ移動
     def tetrimino_move(self, key):
