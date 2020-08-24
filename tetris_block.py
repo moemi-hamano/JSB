@@ -2,6 +2,7 @@
 # -*- coding:Shift-JIS -*-
 import random
 from tetris_square import TetrisSquare
+from next_tetrimino_area import NextTetriminoArea
 from const import TETRIMINO_SHAPE_O
 from const import TETRIMINO_SHAPE_I
 from const import TETRIMINO_SHAPE_T
@@ -33,15 +34,61 @@ class TetrisBlock:
         cords = None
 
         # ブロックの形をランダムに決定
-        # TODO kashida to 濱野さん テスト用にblock_typeを1で固定させています。適宜削除して、乱数指定に修正してください。
-        # block_type = random.randint(1, 7)
-        block_type = 1
+        block_type = random.randint(1, 7)
         if block_type == TETRIMINO_SHAPE_O:
             color = TETRIMINO_COLOR_O
             cords = [
                 [TETRIS_FIELD_WIDTH / 2, 0],
                 [TETRIS_FIELD_WIDTH / 2, 1],
                 [TETRIS_FIELD_WIDTH / 2 - 1, 0],
+                [TETRIS_FIELD_WIDTH / 2 - 1, 1],
+            ]
+        elif block_type == TETRIMINO_SHAPE_I:
+            color = TETRIMINO_COLOR_I
+            cords = [
+                [TETRIS_FIELD_WIDTH / 2, 0],
+                [TETRIS_FIELD_WIDTH / 2 + 1, 0],
+                [TETRIS_FIELD_WIDTH / 2 - 1, 0],
+                [TETRIS_FIELD_WIDTH / 2 - 2, 0],
+            ]
+        elif block_type == TETRIMINO_SHAPE_T :
+            color = TETRIMINO_COLOR_T
+            cords = [
+                [TETRIS_FIELD_WIDTH / 2, 0],
+                [TETRIS_FIELD_WIDTH / 2, 1],
+                [TETRIS_FIELD_WIDTH / 2 - 1, 1],
+                [TETRIS_FIELD_WIDTH / 2 + 1, 1],
+            ]
+        elif block_type == TETRIMINO_SHAPE_L:
+            color = TETRIMINO_COLOR_L
+            cords = [
+                [TETRIS_FIELD_WIDTH / 2 + 1, 0],
+                [TETRIS_FIELD_WIDTH / 2 + 1, 1],
+                [TETRIS_FIELD_WIDTH / 2, 1],
+                [TETRIS_FIELD_WIDTH / 2 - 1, 1],
+            ]
+        elif block_type == TETRIMINO_SHAPE_J:
+            color = TETRIMINO_COLOR_J
+            cords = [
+                [TETRIS_FIELD_WIDTH / 2 - 1, 0],
+                [TETRIS_FIELD_WIDTH / 2 - 1, 1],
+                [TETRIS_FIELD_WIDTH / 2, 1],
+                [TETRIS_FIELD_WIDTH / 2 + 1, 1],
+            ]
+        elif block_type == TETRIMINO_SHAPE_Z:
+            color = TETRIMINO_COLOR_Z
+            cords = [
+                [TETRIS_FIELD_WIDTH / 2, 0],
+                [TETRIS_FIELD_WIDTH / 2 - 1, 0],
+                [TETRIS_FIELD_WIDTH / 2, 1],
+                [TETRIS_FIELD_WIDTH / 2 + 1, 1],
+            ]
+        elif block_type == TETRIMINO_SHAPE_S:
+            color = TETRIMINO_COLOR_S
+            cords = [
+                [TETRIS_FIELD_WIDTH / 2, 0],
+                [TETRIS_FIELD_WIDTH / 2 + 1, 0],
+                [TETRIS_FIELD_WIDTH / 2, 1],
                 [TETRIS_FIELD_WIDTH / 2 - 1, 1],
             ]
 
@@ -61,3 +108,12 @@ class TetrisBlock:
         for square in self.squares:
             x, y = square.get_moved_cord(direction)
             square.set_cord(x, y)
+
+    # 次テトリミノを表示
+    def __next__(self, app):
+        # ランダムで次テトリミノ生成
+        self.squares = random.randint(1, 7)
+        # 次のテトリミノ管理を初期化
+        self.next_tetrimino_area = NextTetriminoArea()
+        # NextTetriminoAreaに情報を送る
+        self.next_tetrimino = NextTetriminoArea(app, self.next_tetrimino_area)
